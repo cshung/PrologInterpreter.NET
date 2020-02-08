@@ -49,6 +49,10 @@
 
                         substitutions.Add(new Substitution { Variable = vx, By = y });
                     }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else if (y is Variable)
                 {
@@ -63,6 +67,10 @@
 
                         substitutions.Add(new Substitution { Variable = vy, By = x });
                     }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else if (x == y)
                 {
@@ -74,11 +82,16 @@
                     Predicate yP = (Predicate)y;
                     if (xP.Name.Equals(yP.Name))
                     {
+                        // Assumption - arity equals if name equals
                         var argumentPairs = xP.Arguments.Zip(yP.Arguments, (p, q) => new Equation { Left = p, Right = q });
                         foreach (var argumentPair in argumentPairs)
                         {
                             stack.Push(argumentPair);
                         }
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
                 else
