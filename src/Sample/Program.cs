@@ -7,9 +7,7 @@ namespace Andrew.PrologInterpreter
     internal static class Program
     {
         internal static bool tracing = true;
-        internal static Term nil = new Atom("nil");
-        internal static Atom t = new Atom("true");
-        internal static Atom f = new Atom("false");
+
 
         private static void Main(string[] args)
         {
@@ -54,13 +52,13 @@ namespace Andrew.PrologInterpreter
 
             var rules = new List<Rule>
             {
-                new Rule { Head = t, Implies = new List<Term>() },
+                new Rule { Head = BuiltIns.t, Implies = new List<Term>() },
                 // append([],X,X).
-                new Rule { Head = Append(nil, x1, x1), Implies = new List<Term>() },
+                new Rule { Head = Append(BuiltIns.nil, x1, x1), Implies = new List<Term>() },
                 // append([P|Q],R,[P|S]) :- append(Q,R,S).
                 new Rule { Head = Append(Cons(p2, q2), r2, Cons(p2, s2)), Implies = new List<Term> { Append(q2, r2, s2) } },
                 // partition([],_,[],[],[]).
-                new Rule { Head = Partition(nil, u3, nil, nil, nil), Implies = new List<Term>() },
+                new Rule { Head = Partition(BuiltIns.nil, u3, BuiltIns.nil, BuiltIns.nil, BuiltIns.nil), Implies = new List<Term>() },
                 // partition([B|T],B,P,[B|Q],R) :- partition(T, B, P, Q, R).
                 new Rule { Head = Partition(Cons(b4, t4), b4, p4, Cons(b4,q4), r4), Implies = new List<Term> { Partition(t4, b4, p4, q4, r4) } },
                 // partition([H|T],B,[H|P],Q,R) :- H < B, partition(T, B, P, Q, R).
@@ -68,7 +66,7 @@ namespace Andrew.PrologInterpreter
                 // partition([H|T],B,P,Q,[H|R]) :- H > B, partition(T, B, P, Q, R).
                 new Rule { Head = Partition(Cons(h6, t6), b6, p6, q6, Cons(h6, r6)), Implies = new List<Term> { Greater(h6, b6), Partition(t6, b6, p6, q6, r6) } },
                 // qsort([],[]).
-                new Rule { Head = Qsort(nil, nil), Implies = new List<Term>() },
+                new Rule { Head = Qsort(BuiltIns.nil, BuiltIns.nil), Implies = new List<Term>() },
                 // qsort([P|C]), B) :- partition(C,P,S,T,U), qsort(S,V), qsort(U,W), append(V, [P|T], X), append(X, W, B).
                 new Rule { Head = Qsort(Cons(p8, c8), b8), Implies = new List<Term> { Partition(c8,p8,s8,t8,u8), Qsort(s8,v8), Qsort(u8,w8), Append(v8, Cons(p8,t8), x8), Append(x8, w8, b8) } },
             };
@@ -122,7 +120,7 @@ namespace Andrew.PrologInterpreter
         {
             if (terms.Length == 0)
             {
-                return nil;
+                return BuiltIns.nil;
             }
             else
             {

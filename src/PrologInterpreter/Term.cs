@@ -3,7 +3,7 @@ namespace Andrew.PrologInterpreter
     using System;
     using System.Collections.Generic;
 
-    internal abstract class Term
+    public abstract class Term
     {
         internal abstract bool HasVariable(Variable variable);
 

@@ -4,18 +4,18 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Interpreter
+    public class Interpreter
     {
         private List<Rule> rules;
         private bool tracing;
 
-        internal Interpreter(List<Rule> rules, bool tracing)
+        public Interpreter(List<Rule> rules, bool tracing)
         {
             this.rules = rules;
             this.tracing = tracing;
         }
 
-        internal IEnumerable<List<Substitution>> Query(List<Term> queryTerms)
+        public IEnumerable<List<Substitution>> Query(List<Term> queryTerms)
         {
             var queryVariables = new HashSet<Variable>();
             foreach (var queryTerm in queryTerms)

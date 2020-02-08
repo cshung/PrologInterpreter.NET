@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B27869D8-D944-4DBB-A080-2857EC629339}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrologInterpreter", "src\PrologInterpreter\PrologInterpreter.csproj", "{167A7120-CD63-4FA1-B603-47ABF1A6C115}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{785089FA-0DE5-4CD5-AF94-7B86809AF8A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrologInterpreter.Tests", "test\PrologInterpreter.Tests\PrologInterpreter.Tests.csproj", "{7BA1211B-B637-4705-B854-B605F682DB01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|x64.Build.0 = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Debug|x86.Build.0 = Debug|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|x64.ActiveCfg = Release|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|x64.Build.0 = Release|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|x86.ActiveCfg = Release|Any CPU
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115}.Release|x86.Build.0 = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|x64.Build.0 = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Debug|x86.Build.0 = Debug|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|x64.ActiveCfg = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|x64.Build.0 = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|x86.ActiveCfg = Release|Any CPU
+		{7BA1211B-B637-4705-B854-B605F682DB01}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{167A7120-CD63-4FA1-B603-47ABF1A6C115} = {B27869D8-D944-4DBB-A080-2857EC629339}
+		{7BA1211B-B637-4705-B854-B605F682DB01} = {785089FA-0DE5-4CD5-AF94-7B86809AF8A8}
+	EndGlobalSection
+EndGlobal

@@ -4,11 +4,12 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Rule
+    public class Rule
     {
-        internal Term Head { get; set; }
+        // TODO: Restrict public access to read only by providing constructor
+        public Term Head { get; set; }
 
-        internal List<Term> Implies { get; set; }
+        public List<Term> Implies { get; set; }
 
         internal Rule Rename()
         {

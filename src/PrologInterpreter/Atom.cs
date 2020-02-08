@@ -3,11 +3,11 @@ namespace Andrew.PrologInterpreter
     using System;
     using System.Collections.Generic;
 
-    internal class Atom : Term
+    public class Atom : Term
     {
         private string name;
 
-        internal Atom(string name)
+        public Atom(string name)
         {
             this.name = name;
         }

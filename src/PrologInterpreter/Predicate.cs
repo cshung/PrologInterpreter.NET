@@ -4,13 +4,13 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Predicate : Term
+    public class Predicate : Term
     {
         private string name;
 
         private List<Term> arguments;
 
-        internal Predicate(string name, List<Term> arguments)
+        public Predicate(string name, List<Term> arguments)
         {
             this.name = name;
             this.arguments = arguments;

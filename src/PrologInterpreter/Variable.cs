@@ -4,7 +4,7 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Variable : Term
+    public class Variable : Term
     {
         private static int id = 1;
 
@@ -12,7 +12,7 @@ namespace Andrew.PrologInterpreter
 
         private int version;
 
-        internal Variable(string name)
+        public Variable(string name)
         {
             this.name = name;
             this.version = id++;

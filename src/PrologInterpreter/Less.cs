@@ -4,9 +4,9 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Less : Predicate
+    public class Less : Predicate
     {
-        internal Less(string name, List<Term> arguments) : base(name, arguments)
+        public Less(string name, List<Term> arguments) : base(name, arguments)
         {
         }
 
@@ -23,11 +23,11 @@ namespace Andrew.PrologInterpreter
             {
                 if (string.Compare(firstTerm.ToString(), secondTerm.ToString()) < 0)
                 {
-                    return Program.t;
+                    return BuiltIns.t;
                 }
                 else
                 {
-                    return Program.f;
+                    return BuiltIns.f;
                 }
             }
         }
