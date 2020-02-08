@@ -18,7 +18,7 @@ namespace Andrew.PrologInterpreter
             this.version = id++;
         }
 
-        internal string Name
+        public string Name
         {
             get { return this.name; }
         }

@@ -6,7 +6,7 @@ namespace Andrew.PrologInterpreter
 
     internal static class Program
     {
-        internal static bool tracing = false;
+        internal static bool tracing = true;
 
 
         private static void Main(string[] args)
@@ -81,7 +81,7 @@ namespace Andrew.PrologInterpreter
                 Console.WriteLine("Yes.");
                 foreach (var substitution in solution)
                 {
-                    Console.WriteLine("{0} is substituted by {1}", substitution.Variable, substitution.By);
+                    Console.WriteLine("{0} is substituted by {1}", substitution.Variable.Name, substitution.By);
                 }
             }
         }
