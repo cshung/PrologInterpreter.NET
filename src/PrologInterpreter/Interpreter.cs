@@ -36,7 +36,11 @@ namespace Andrew.PrologInterpreter
                 Equation equation = stack.Pop();
                 Term x = equation.Left;
                 Term y = equation.Right;
-                if (x is Variable)
+                if (x == y)
+                {
+                    // no-op - identical atom/variable unifies
+                }
+                else if (x is Variable)
                 {
                     Variable vx = (Variable)x;
                     if (!y.HasVariable(vx))
@@ -71,10 +75,6 @@ namespace Andrew.PrologInterpreter
                     {
                         return null;
                     }
-                }
-                else if (x == y)
-                {
-                    // no-op - identical atom/variable unifies
                 }
                 else if (x is Predicate && y is Predicate)
                 {
@@ -125,16 +125,7 @@ namespace Andrew.PrologInterpreter
                 if (substitutions != null)
                 {
                     List<Term> resolvents = new List<Term>();
-                    foreach (Term u in rule2.Implies)
-                    {
-                        Term t = u;
-                        foreach (var sub in substitutions)
-                        {
-                            t = t.Substitute(sub.Variable, sub.By);
-                        }
-                        resolvents.Add(t);
-                    }
-                    foreach (Term u in queryTerms.Skip(1))
+                    foreach (Term u in rule2.Implies.Concat(queryTerms.Skip(1)))
                     {
                         Term t = u;
                         foreach (var sub in substitutions)

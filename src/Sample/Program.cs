@@ -6,7 +6,7 @@ namespace Andrew.PrologInterpreter
 
     internal static class Program
     {
-        internal static bool tracing = true;
+        internal static bool tracing = false;
 
 
         private static void Main(string[] args)
@@ -71,10 +71,10 @@ namespace Andrew.PrologInterpreter
                 new Rule { Head = Qsort(Cons(p8, c8), b8), Implies = new List<Term> { Partition(c8,p8,s8,t8,u8), Qsort(s8,v8), Qsort(u8,w8), Append(v8, Cons(p8,t8), x8), Append(x8, w8, b8) } },
             };
 
-            Term a = new Atom("a");
-            Term b = new Atom("b");
-            Term c = new Atom("c");
-            Term d = new Atom("d");
+            Term a = new Atom("prolog");
+            Term b = new Atom("interpreter");
+            Term c = new Atom("dot");
+            Term d = new Atom("net");
             Term result = new Variable("Result");
             foreach (var solution in new Interpreter(rules, tracing).Query(new List<Term> { Qsort(List(a, b, c, d), result) }))
             {
@@ -103,12 +103,12 @@ namespace Andrew.PrologInterpreter
 
         private static Term Less(Term left, Term right)
         {
-            return new Less("Less", new List<Term>{left, right});
+            return new Predicate("Less", new List<Term>{left, right}, (terms => string.Compare(((Atom)terms[0]).ToString(), ((Atom)terms[1]).ToString()) < 0 ));
         }
 
         private static Term Greater(Term left, Term right)
         {
-            return new Greater("Greater", new List<Term>{left, right});
+            return new Predicate("Greater", new List<Term>{left, right}, (terms => string.Compare(((Atom)terms[0]).ToString(), ((Atom)terms[1]).ToString()) > 0 ));
         }
 
         private static Term Qsort(Term input, Term output)
