@@ -6,10 +6,18 @@ namespace Andrew.PrologInterpreter
 
     public class Rule
     {
-        // TODO: Restrict public access to read only by providing constructor
-        public Term Head { get; set; }
+        private Term head;
+        private List<Term> implies;
 
-        public List<Term> Implies { get; set; }
+        public Rule(Term head, List<Term> implies)
+        {
+            this.head = head;
+            this.implies = implies;
+        }
+
+        internal Term Head { get { return this.head; } }
+
+        internal List<Term> Implies { get { return this.implies; } }
 
         internal Rule Rename()
         {
@@ -21,7 +29,7 @@ namespace Andrew.PrologInterpreter
             }
 
             List<Tuple<Variable, Variable>> replacements = variables.Select(t => Tuple.Create(t, new Variable(t.Name))).ToList();
-            return new Rule { Head = this.Head.Rename(replacements), Implies = this.Implies.Select(t => t.Rename(replacements)).ToList() };
+            return new Rule(this.Head.Rename(replacements), this.Implies.Select(t => t.Rename(replacements)).ToList());
         }
     }
 }
