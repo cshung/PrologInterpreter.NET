@@ -1,4 +1,4 @@
-﻿namespace Andrew.PrologInterpreter
+namespace Andrew.PrologInterpreter
 {
     using System;
     using System.Collections.Generic;
@@ -23,7 +23,7 @@
                 queryTerm.CollectVariables(queryVariables);
             }
 
-            return this.Query(queryTerms, queryVariables.Select(t => new Substitution { Variable = t, By = t }).ToList());
+            return this.Query(queryTerms, queryVariables.Select(t => new Substitution { Variable = t, By = t }).ToList(), 0);
         }
 
         private static List<Substitution> Unify(Term left, Term right)
@@ -103,7 +103,7 @@
             return substitutions;
         }
 
-        private IEnumerable<List<Substitution>> Query(List<Term> queryTerms, List<Substitution> queryVariableSubstitions)
+        private IEnumerable<List<Substitution>> Query(List<Term> queryTerms, List<Substitution> queryVariableSubstitions, int indent)
         {
             if (queryTerms.Count == 0)
             {
@@ -111,28 +111,38 @@
                 yield break;
             }
 
-            List<Term> resolvents = new List<Term>(queryTerms);
             if (this.tracing)
             {
-                Console.WriteLine(string.Join(", ", resolvents));
+                Console.Write(new String(' ', indent));
+                Console.WriteLine(string.Join(", ", queryTerms));
             }
 
-            Term currentQuery = resolvents.First();
+            Term currentQuery = queryTerms.First();
             foreach (var rule in this.rules)
             {
                 var rule2 = rule.Rename();
                 var substitutions = Unify(currentQuery, rule2.Head);
                 if (substitutions != null)
                 {
-                    var ruleSubstituted = rule2.Implies.Select(t =>
+                    List<Term> resolvents = new List<Term>();
+                    foreach (Term u in rule2.Implies)
                     {
+                        Term t = u;
                         foreach (var sub in substitutions)
                         {
                             t = t.Substitute(sub.Variable, sub.By);
                         }
-
-                        return t;
-                    });
+                        resolvents.Add(t);
+                    }
+                    foreach (Term u in queryTerms.Skip(1))
+                    {
+                        Term t = u;
+                        foreach (var sub in substitutions)
+                        {
+                            t = t.Substitute(sub.Variable, sub.By);
+                        }
+                        resolvents.Add(t);
+                    }
                     var queryVariableSubstitionsSubstituted = queryVariableSubstitions.Select(s =>
                     {
                         Term by = s.By;
@@ -143,7 +153,7 @@
 
                         return new Substitution { Variable = s.Variable, By = by };
                     }).ToList();
-                    foreach (var result in this.Query(resolvents.Skip(1).Concat(ruleSubstituted).ToList(), queryVariableSubstitionsSubstituted))
+                    foreach (var result in this.Query(resolvents, queryVariableSubstitionsSubstituted, indent + 2))
                     {
                         yield return result;
                     }

@@ -1,4 +1,4 @@
-﻿namespace Andrew.PrologInterpreter
+namespace Andrew.PrologInterpreter
 {
     internal class Equation
     {

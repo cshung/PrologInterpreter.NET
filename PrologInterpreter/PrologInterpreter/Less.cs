@@ -4,9 +4,9 @@ namespace Andrew.PrologInterpreter
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Greater : Predicate
+    internal class Less : Predicate
     {
-        internal Greater(string name, List<Term> arguments) : base(name, arguments)
+        internal Less(string name, List<Term> arguments) : base(name, arguments)
         {
         }
 
@@ -17,11 +17,11 @@ namespace Andrew.PrologInterpreter
             Atom secondTerm =  super.Arguments[1] as Atom;
             if (firstTerm == null || secondTerm == null)
             {
-                return new Greater(super.Name, super.Arguments);
+                return new Less(super.Name, super.Arguments);
             }
             else 
             {
-                if (string.Compare(firstTerm.ToString(), secondTerm.ToString()) > 0)
+                if (string.Compare(firstTerm.ToString(), secondTerm.ToString()) < 0)
                 {
                     return Program.t;
                 }
@@ -34,7 +34,7 @@ namespace Andrew.PrologInterpreter
 
         internal override Term Rename(List<Tuple<Variable, Variable>> replacements)
         {
-            return new Greater(this.Name, this.Arguments.Select(t => t.Rename(replacements)).ToList());
+            return new Less(this.Name, this.Arguments.Select(t => t.Rename(replacements)).ToList());
         }        
     }
 }

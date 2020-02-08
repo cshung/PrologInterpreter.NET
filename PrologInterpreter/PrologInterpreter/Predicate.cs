@@ -1,4 +1,4 @@
-﻿namespace Andrew.PrologInterpreter
+namespace Andrew.PrologInterpreter
 {
     using System;
     using System.Collections.Generic;
