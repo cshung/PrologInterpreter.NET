@@ -62,9 +62,9 @@ namespace Andrew.PrologInterpreter
                 // partition([B|T],B,P,[B|Q],R) :- partition(T, B, P, Q, R).
                 new Rule(Partition(Cons(b4, t4), b4, p4, Cons(b4,q4), r4), new List<Term> { Partition(t4, b4, p4, q4, r4) }),
                 // partition([H|T],B,[H|P],Q,R) :- H < B, partition(T, B, P, Q, R).
-                new Rule(Partition(Cons(h5, t5), b5, Cons(h5, p5), q5, r5), new List<Term> { Less(h5, b5), Partition(t5, b5, p5, q5, r5) }),
+                new Rule(Partition(Cons(h5, t5), b5, Cons(h5, p5), q5, r5), new List<Term> { Less(h5, b5), new Cut(), Partition(t5, b5, p5, q5, r5) }),
                 // partition([H|T],B,P,Q,[H|R]) :- H > B, partition(T, B, P, Q, R).
-                new Rule(Partition(Cons(h6, t6), b6, p6, q6, Cons(h6, r6)), new List<Term> { Greater(h6, b6), Partition(t6, b6, p6, q6, r6) }),
+                new Rule(Partition(Cons(h6, t6), b6, p6, q6, Cons(h6, r6)), new List<Term> { Partition(t6, b6, p6, q6, r6) }),
                 // qsort([],[]).
                 new Rule(Qsort(BuiltIns.nil, BuiltIns.nil), new List<Term>()),
                 // qsort([P|C]), B) :- partition(C,P,S,T,U), qsort(S,V), qsort(U,W), append(V, [P|T], X), append(X, W, B).
@@ -105,11 +105,6 @@ namespace Andrew.PrologInterpreter
         private static Term Less(Term left, Term right)
         {
             return new Predicate("Less", new List<Term>{left, right}, (terms => string.Compare(((Atom)terms[0]).ToString(), ((Atom)terms[1]).ToString()) < 0 ));
-        }
-
-        private static Term Greater(Term left, Term right)
-        {
-            return new Predicate("Greater", new List<Term>{left, right}, (terms => string.Compare(((Atom)terms[0]).ToString(), ((Atom)terms[1]).ToString()) > 0 ));
         }
 
         private static Term Qsort(Term input, Term output)

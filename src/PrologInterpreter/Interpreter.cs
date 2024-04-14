@@ -118,35 +118,61 @@ namespace Andrew.PrologInterpreter
             }
 
             Term currentQuery = queryTerms.First();
-            foreach (var rule in this.rules)
+            Cut currentCut = currentQuery as Cut;
+            if (currentCut != null)
             {
-                var rule2 = rule.Rename();
-                var substitutions = Unify(currentQuery, rule2.Head);
-                if (substitutions != null)
+                currentCut.Apply();
+                foreach (var result in this.Query(queryTerms.Skip(1).ToList(), queryVariableSubstitions, indent + 2))
                 {
-                    List<Term> resolvents = new List<Term>();
-                    foreach (Term u in rule2.Implies.Concat(queryTerms.Skip(1)))
+                    yield return result;
+                }
+            }
+            else
+            {
+                Cutter cutter = null;
+                foreach (var rule in this.rules)
+                {
+                    if (cutter != null && cutter.Cut)
                     {
-                        Term t = u;
-                        foreach (var sub in substitutions)
-                        {
-                            t = t.Substitute(sub.Variable, sub.By);
-                        }
-                        resolvents.Add(t);
+                        break;
                     }
-                    var queryVariableSubstitionsSubstituted = queryVariableSubstitions.Select(s =>
+                    var rule2 = rule.Rename();
+                    var substitutions = Unify(currentQuery, rule2.Head);
+                    if (substitutions != null)
                     {
-                        Term by = s.By;
-                        foreach (var sub in substitutions)
+                        List<Term> resolvents = new List<Term>();
+                        foreach (Term u in rule2.Implies.Concat(queryTerms.Skip(1)))
                         {
-                            by = by.Substitute(sub.Variable, sub.By);
+                            Term t = u;
+                            foreach (var sub in substitutions)
+                            {
+                                t = t.Substitute(sub.Variable, sub.By);
+                            }
+                            resolvents.Add(t);
+                            Cut cut = t as Cut;
+                            if (cut != null)
+                            {
+                                if (cutter == null)
+                                {
+                                    cutter = new Cutter();
+                                }
+                                cut.Prepare(cutter);
+                            }
                         }
+                        var queryVariableSubstitionsSubstituted = queryVariableSubstitions.Select(s =>
+                        {
+                            Term by = s.By;
+                            foreach (var sub in substitutions)
+                            {
+                                by = by.Substitute(sub.Variable, sub.By);
+                            }
 
-                        return new Substitution { Variable = s.Variable, By = by };
-                    }).ToList();
-                    foreach (var result in this.Query(resolvents, queryVariableSubstitionsSubstituted, indent + 2))
-                    {
-                        yield return result;
+                            return new Substitution { Variable = s.Variable, By = by };
+                        }).ToList();
+                        foreach (var result in this.Query(resolvents, queryVariableSubstitionsSubstituted, indent + 2))
+                        {
+                            yield return result;
+                        }
                     }
                 }
             }
